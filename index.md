@@ -17,7 +17,9 @@ The goal of our project is to find cells and blood vessels. Therefore, instead o
 
 ## Dayer et.al Dataset
 
-We test the accuracy of Superhuman U-Net on the work of Dayer et.al[http://www.eneuro.org/content/eneuro/4/5/ENEURO.0195-17.2017.full.pdf]. In this paper, they produced three datasets using synchrotron X-ray microtomography (uCT): V1 (195, 195, 65 um) and V2 (130, 130, 65 um) and test volume V3 (130, 130, 130 um). For V1 and V2, the labels are densely labelled with blood vessels and cell bodies. V3 is sparsely labelled. We run our Superhuman U-Net on this volume and our output has three channels(background, blood vessel, and cell bodies). To be comparable with the results in the paper, we only look at the channel for cell bodies. We then threshold the probabilities in the channel to determine which pixel belongs cell body. To evaluate the result, we use the precision and recall. First, threshold is treated as a hyperparameter to balance the precision and recall. Dayer's paper uses f1 and f2 score, defined as 
+We test the accuracy of Superhuman U-Net on the work of Dayer et.al[http://www.eneuro.org/content/eneuro/4/5/ENEURO.0195-17.2017.full.pdf]. In this paper, they produced three datasets using synchrotron X-ray microtomography (uCT): V1 (195, 195, 65 um) and V2 (130, 130, 65 um) and test volume V3 (130, 130, 130 um). For V1 and V2, the labels are densely labelled with blood vessels and cell bodies. V3 is sparsely labelled. As a first step, we preprocess the label into three classes: blood vessels, cell bodies, and background. 
+
+We run our Superhuman U-Net on this volume and our output has three channels(background, blood vessel, and cell bodies). To be comparable with the results in the paper, we only look at the channel for cell bodies. We then threshold the probabilities in the channel to determine which pixel belongs cell body. To evaluate the result, we use the precision and recall. First, threshold is treated as a hyperparameter to balance the precision and recall. Dayer's paper uses f1 and f2 score, defined as 
 
 <p float="left">
   <img src="./img/fscore.png" width="200" />
@@ -42,11 +44,14 @@ One of the drawback of Dayer's paper is decision tree is used to classify the ce
   <img src="./img/v1_bv_prediction.png" width="200" />
 </p>
 
+From left to right: V1 label, V1 cell prediction, V1 cell after thresholding, V1 blood vessel prediction.
+
 <p float="left">
   <img src="./img/v3_cell_label.png" width="400" />
   <img src="./img/v3_cell_prediction.png" width="400" />
 </p>
 
+From left to right: V3 label, V3 cell prediction.
  
 
 ## Mouse(ZeissNag) Dataset
@@ -55,4 +60,12 @@ Compared to Dayer's dataset, mouse dataset has low resolution but comes in large
 
 # Instructions
 
+We use Odyssey to run our experiments. Some of the sample instructions are shown below.
+```
+python /n/coxfs01/zhjin/EM-network/script/train_superhuman_kasthuri.py -di V1_img_255.h5@/n/coxfs01/vcg_connectomics/Dyer17/data/train/V2/V2_img.h5 -dl V1_anno_dense_bv_cell_corrected.h5@V2_anno_dense_bv_cell_corrected.h5 -do /n/coxfs01/zhjin/kasthuri/result --volume-total 11000 --volume-save 2000 --volume-valid 1000 --data-shape "64,64,64" -lr 0.005 -it 1 -bn 1 -rl 2 -dr 1.5 -g 2 -j 1 -bs 10
+```
+The github repository for [EM](https://github.com/donglaiw/EM-network). Refer to that for installation.
+
 # Conclusion
+
+Further work to be done: Explore the global prior part in more detail and come up with design and implementation.
