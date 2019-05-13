@@ -34,6 +34,19 @@ To reduce inbalance in label weights, we have to apply a weight factor alpha on 
 
 
 One of the drawback of Dayer's paper is decision tree is used to classify the cells and blood vessels. This is a weak algorithm and doesn't produce accurate results. The test dataset (V3) is sparsely labelled and therefore, the precision and recall score calculated doesn’t accurately reflect the how well the decision tree algorithm performs. For example, a week prediction algorithm only predicts cells that are easily identifiable, and these cells happen to be those being sparsely labelled. This will achieve a high precision score, but it’s not a good benchmark. The Superhuman UNet achieves a higher recall score on both V2 and V3, which means it correctly identifies more correct cells compared to the decision tree algorithm while also finds cells not labelled in the dataset.
+
+<p float="left">
+  <img src="./img/v1_label.png" width="200" />
+  <img src="./img/v1_cell_prediction.png" width="200" />
+  <img src="./img/v1_cell_threshold.png" width="200" />
+  <img src="./img/v1_bv_prediction.png" width="200" />
+</p>
+
+<p float="left">
+  <img src="./img/v3_cell_label.png" width="400" />
+  <img src="./img/v3_cell_prediction.png" width="400" />
+</p>
+
  
 
 ## Mouse(ZeissNag) Dataset
