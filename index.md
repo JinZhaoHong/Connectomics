@@ -15,11 +15,11 @@ The goal of our project is to find cells and blood vessels. Therefore, instead o
 
 # Experiments 
 
-## Dayer et.al Dataset
+## Dyer et.al Dataset
 
-We test the accuracy of Superhuman U-Net on the work of [Dayer et.al](http://www.eneuro.org/content/eneuro/4/5/ENEURO.0195-17.2017.full.pdf). In this paper, they produced three datasets using synchrotron X-ray microtomography (uCT): V1 (195, 195, 65 um) and V2 (130, 130, 65 um) and test volume V3 (130, 130, 130 um). For V1 and V2, the labels are densely labelled with blood vessels and cell bodies. V3 is sparsely labelled. As a first step, we preprocess the label into three classes: blood vessels, cell bodies, and background. 
+We test the accuracy of Superhuman U-Net on the work of [Dyer et.al](http://www.eneuro.org/content/eneuro/4/5/ENEURO.0195-17.2017.full.pdf). In this paper, they produced three datasets using synchrotron X-ray microtomography (uCT): V1 (195, 195, 65 um) and V2 (130, 130, 65 um) and test volume V3 (130, 130, 130 um). For V1 and V2, the labels are densely labelled with blood vessels and cell bodies. V3 is sparsely labelled. As a first step, we preprocess the label into three classes: blood vessels, cell bodies, and background. 
 
-We run our Superhuman U-Net on this volume and our output has three channels(background, blood vessel, and cell bodies). To be comparable with the results in the paper, we only look at the channel for cell bodies. We then threshold the probabilities in the channel to determine which pixel belongs cell body. To evaluate the result, we use the precision and recall. First, threshold is treated as a hyperparameter to balance the precision and recall. Dayer's paper uses f1 and f2 score, defined as 
+We run our Superhuman U-Net on this volume and our output has three channels(background, blood vessel, and cell bodies). To be comparable with the results in the paper, we only look at the channel for cell bodies. We then threshold the probabilities in the channel to determine which pixel belongs cell body. To evaluate the result, we use the precision and recall. First, threshold is treated as a hyperparameter to balance the precision and recall. Dyer's paper uses f1 and f2 score, defined as 
 
 <p float="left">
   <img src="./img/fscore.png" width="200" />
@@ -29,13 +29,13 @@ where beta takes value of 1 or 2. For pixel level segmentation, f2 score produce
 
 |    | V1(precision, recall) | V2(precision, recall) | V3(precision, recall) |
 |:---|:---|:---|:---|
-| Dayer |  0.86, 0.84 |  0.83, 0.76  |  0.94, 0.78 |
-| Superhuman UNet |  0.81, 0.68 | 0.67, 0.83   | 0.78, 0.88 |
+| Dyer |  0.86, 0.84 |  0.83, 0.76  |  0.94, 0.78 |
+| Our implementation of Superhuman UNet |  0.81, 0.68 | 0.67, 0.83   | 0.78, 0.88 |
 
 To reduce inbalance in label weights, we have to apply a weight factor alpha on the labels. For V2 result, we set alpha=5, and for V1 and V3 result, we set alpha=20
 
 
-One of the drawback of Dayer's paper is decision tree is used to classify the cells and blood vessels. This is a weak algorithm and doesn't produce accurate results. The test dataset (V3) is sparsely labelled and therefore, the precision and recall score calculated doesn’t accurately reflect the how well the decision tree algorithm performs. For example, a week prediction algorithm only predicts cells that are easily identifiable, and these cells happen to be those being sparsely labelled. This will achieve a high precision score, but it’s not a good benchmark. The Superhuman UNet achieves a higher recall score on both V2 and V3, which means it correctly identifies more correct cells compared to the decision tree algorithm while also finds cells not labelled in the dataset.
+One of the drawback of Dyer's paper is decision tree is used to classify the cells and blood vessels. This is a weak algorithm and doesn't produce accurate results. The test dataset (V3) is sparsely labelled and therefore, the precision and recall score calculated doesn’t accurately reflect the how well the decision tree algorithm performs. For example, a week prediction algorithm only predicts cells that are easily identifiable, and these cells happen to be those being sparsely labelled. This will achieve a high precision score, but it’s not a good benchmark. The Superhuman UNet achieves a higher recall score on both V2 and V3, which means it correctly identifies more correct cells compared to the decision tree algorithm while also finds cells not labelled in the dataset.
 
 <p float="left">
   <img src="./img/v1_label.png" width="200" />
@@ -56,7 +56,7 @@ From left to right: V3 label, V3 cell prediction.
 
 ## Mouse(ZeissNag) Dataset
 
-Compared to Dayer's dataset, mouse dataset has low resolution but comes in larger volume. Achieving good results on this dataset means we can have a prediction pipeline that is more scalable because image quality has been a limiting factor. We train the Superhuman UNet in two different ways on the mouse dataset. First, we train only with the mouse dataset. Second, we train with both Dayer's dataset and the mouse dataset. We plan to use the same evaluation metrics such as f2 score. We are still in the process of fine tuning the parameters.
+Compared to Dyer's dataset, mouse dataset has low resolution but comes in larger volume. Achieving good results on this dataset means we can have a prediction pipeline that is more scalable because image quality has been a limiting factor. We train the Superhuman UNet in two different ways on the mouse dataset. First, we train only with the mouse dataset. Second, we train with both Dyer's dataset and the mouse dataset. We plan to use the same evaluation metrics such as f2 score. We are still in the process of fine tuning the parameters.
 
 # Instructions
 
