@@ -17,7 +17,7 @@ The goal of our project is to find cells and blood vessels. Therefore, instead o
 
 ## Dayer et.al Dataset
 
-We test the accuracy of Superhuman U-Net on the work of Dayer et.al[http://www.eneuro.org/content/eneuro/4/5/ENEURO.0195-17.2017.full.pdf]. In this paper, they produced three datasets using synchrotron X-ray microtomography (uCT): V1 (195, 195, 65 um) and V2 (130, 130, 65 um) and test volume V3 (130, 130, 130 um). For V1 and V2, the labels are densely labelled with blood vessels and cell bodies. V3 is sparsely labelled. As a first step, we preprocess the label into three classes: blood vessels, cell bodies, and background. 
+We test the accuracy of Superhuman U-Net on the work of [Dayer et.al](http://www.eneuro.org/content/eneuro/4/5/ENEURO.0195-17.2017.full.pdf). In this paper, they produced three datasets using synchrotron X-ray microtomography (uCT): V1 (195, 195, 65 um) and V2 (130, 130, 65 um) and test volume V3 (130, 130, 130 um). For V1 and V2, the labels are densely labelled with blood vessels and cell bodies. V3 is sparsely labelled. As a first step, we preprocess the label into three classes: blood vessels, cell bodies, and background. 
 
 We run our Superhuman U-Net on this volume and our output has three channels(background, blood vessel, and cell bodies). To be comparable with the results in the paper, we only look at the channel for cell bodies. We then threshold the probabilities in the channel to determine which pixel belongs cell body. To evaluate the result, we use the precision and recall. First, threshold is treated as a hyperparameter to balance the precision and recall. Dayer's paper uses f1 and f2 score, defined as 
 
@@ -69,3 +69,13 @@ The github repository for [EM](https://github.com/donglaiw/EM-network). Refer to
 # Conclusion
 
 Further work to be done: Explore the global prior part in more detail and come up with design and implementation.
+
+
+# Citation
+
+Eva L. Dyer, William Gray Roncal, Judy A. Prasad, Hugo L. Fernandes, Doga Gürsoy, Vincent De Andrade, Kamel Fezzaa, Xianghui Xiao, Joshua T. Vogelstein, Chris Jacobsen, Konrad P. Körding and Narayanan Kasthuri(2017) Quantifying Mesoscale Neuroanatomy Using X-Ray Microtomography. eNeruo.
+
+Kisuk Lee, Jonathan Zung, Peter Li, Viren Jain, H. Sebastian Seung(2017) Superhuman Accuracy on the SNEMI3D Connectomics Challenge. NIPS.
+
+Özgün Çiçek, Ahmed Abdulkadir, Soeren S. Lienkamp, Thomas Brox, Olaf Ronneberger(2016) 3D U-Net: Learning Dense Volumetric Segmentation from Sparse Annotation. MICCAI
+
