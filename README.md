@@ -86,11 +86,14 @@ Zeiss_Nag/
 
 ### ibexHelper
 
+#### Script
+To create skeleton points in Dyer, NagCT, DeepFlux, etc.
+
+ibexHelper/script/demo_zhjin.py
+
 #### Datasets:
 
 ibexHelper/
-
-ibexHelper/script/demo_zhjin.py
 
 ## Commands:
 
