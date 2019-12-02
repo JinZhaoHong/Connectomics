@@ -8,6 +8,8 @@ On Research Computer: /n/pfister_lab2/Lab/zhjin
 #### Notebooks:
 skeleton_visualization_and_label_process.ipynb
 
+B-Spline Fitting.ipynb
+
 #### Datasets:
 
 SK-LARGE-MIX-GAUSSIAN/
@@ -33,6 +35,14 @@ SK-LARGE-test.h5
 SK-LARGE-test-POS/
 
 ### Dyer:
+
+Dyer17_V1_Correction.ipynb
+
+LabelProcess.ipynb
+
+precision-recall-Copy1.ipynb
+
+precision-recall.ipynb
 
 #### Notebooks:
 
